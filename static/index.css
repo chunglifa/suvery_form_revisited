@@ -1,0 +1,19 @@
+/*CSS reset settings here*/
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{background-color: white;}
+h1{
+    text-align: center}
+
+form{
+    display: inline-block;
+    background-color: teal;
+    width: 170px;
+    height: 300px;
+}
+form label{
+    display: block;
+}

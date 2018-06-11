@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+        <script type ="text/javascript">
+            $(document).ready(function(){
+                var socket = io();
+
+                $('#form').submit(function(){
+                    console.log('SUBMIT FORM CLICKED')
+                    socket.emit('posting_form', {
+                        name: $('#name').val(),
+                        location: $('#location').val(),
+                        language: $('#language').val(),
+                        comment: $('#comment').val()
+                    });
+                    return false;
+                });
+                    socket.on('updated_message',function(data, num){
+                        console.log('received Updated message');
+                        console.log(data);
+                        console.log(data.data.name);
+                        console.log(num);
+                        $('.new').append("<h4>"+num+ "</h4>")
+                        $('.new').append("<p>"+data.data.name+ "</p>")
+                        $('.new').append("<p>"+data.data.language+ "</p>")
+                        $('.new').append("<p>"+data.data.location+ "</p>")
+                        $('.new').append("<p>"+data.data.comment+ "</p>")
+                    });
+
+            });
+        
+        </script>
+        <title>Form Test Index</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+                <h3>Create a User</h3>
+                <div class="formwrapper">
+                <form id='form' action='' method='POST'>
+                Name:<input id='name' type="text" name="name">
+                Dojo Location: <select id='location' input type ="checkbox" name='dojolocation' >
+                        <option value="San Jose">San Jose</option>
+                        <option value="Seattle">Seattle</option>
+                        <option value="Burbank">Burbank</option>
+                </select>
+                <br>
+                Favorite Language:<select id='language' input type ="checkbox" name='favlanguages'>
+                        <option value="Python">Python</option>
+                        <option value="English">English</option>
+                        <option value="iOS Swift">iOS Swift</option>
+                </select>
+                <textarea id='comment' name="comment">Enter text here...</textarea>
+
+                <input type="submit" value="create_user">
+            </div>
+            <div class="new">
+
+            </div>
+        </form>
+    </body>
+</html>
